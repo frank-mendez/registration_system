@@ -179,4 +179,42 @@ class User extends MY_Controller {
 
 		$this->load->view('users/create-user-modal', $model_data);
 	}
+
+
+	public function create_user()
+	{
+		$user_model = $this->user_model;
+
+		$data = $this->input->post();
+
+		if($data)
+		{
+
+			extract($data, EXTR_SKIP);
+
+			$this->form_validation->set_rules('username', 'Username', 'required|min_length[8]|is_unique[user.username]');
+            $this->form_validation->set_rules('password', 'Password', 'required|min_length[8]');
+            $this->form_validation->set_rules('confirm_password', 'Confirm Password', 'required|matches[password]');
+            $this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
+
+
+            /*Form Error Messages*/
+            $this->form_validation->set_message('required', '{field} is required.');
+            $this->form_validation->set_message('min_length', '{field} must have at least {param} characters.');
+            $this->form_validation->set_message('is_unique', '{field} already exists.');
+            $this->form_validation->set_message('email', '{field} is invalid.');
+
+            if ($this->form_validation->run() == FALSE)
+            {
+                   	echo json_encode(validation_errors());
+            }
+            else
+            {
+                    $query_result = $user_model->insert_user($username, md5($password), $first_name, $last_name, $email, $address, $phone_num, $role_id);
+
+                    echo json_encode($query_result);
+            }
+
+		}
+	}
 }

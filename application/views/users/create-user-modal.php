@@ -1,7 +1,7 @@
 <?php  
   
   $form_attributes = array('class' => 'form-horizontal', 'id' => 'create-user-form');
-  echo form_open('user/create_role', $form_attributes);
+  echo form_open('user/create_user', $form_attributes);
 
 ?>
 <div class="modal-dialog" role="document">
@@ -11,6 +11,13 @@
       <h4 class="modal-title" id="myModalLabel">Create User</h4>
     </div>
     <div class="modal-body">
+
+      <div class="alert alert-danger alert-dismissible fade in hidden" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4>Oh snap! You got an error!</h4>
+        <p class="message"></p>
+      </div>
+
 
       <div class="form-group">
         <label  class="col-sm-2 control-label">Username</label>
@@ -23,6 +30,13 @@
         <label  class="col-sm-2 control-label">Password</label>
         <div class="col-sm-10">
           <input type="password" class="form-control" name="password">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label  class="col-sm-2 control-label">Confirm Password</label>
+        <div class="col-sm-10">
+          <input type="password" class="form-control" name="confirm_password">
         </div>
       </div>
 
@@ -74,7 +88,7 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      <button type="submit" class="btn btn-primary">Save changes</button>
+      <button type="submit" class="btn btn-primary">Create</button>
     </div>
   </div>
 </div>

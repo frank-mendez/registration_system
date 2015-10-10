@@ -265,10 +265,60 @@ Module.Users = (function(){
 						$modal.html(response);
 					},
 					complete: function(response){
-
+						insert_user();
 					}
 
 				});
+
+			});
+
+		}
+
+		function insert_user(){
+
+			$('#create-user-form').on('submit', function(e){
+
+				var form_data = $(this).serialize(),
+					ajax_url = base_url + controller + '/create_user';
+
+				$.ajax({
+					type: 'POST',
+					data: form_data,
+					url: ajax_url,
+					dataType: 'text',
+					beforeSend: function(){
+
+					},
+					success: function(response){
+
+					},
+					complete: function(response){
+
+						var response_message = response.responseText;
+
+						if(response_message == 'true'){
+
+							$('.alert-success').css('display','block');
+							$('.alert-success').fadeOut(3000);
+
+							$modal.modal('hide');
+							get_user_ajax();
+
+
+						}else{
+
+							var message = $.parseJSON(response_message);
+
+							$('.alert-danger').removeClass('hidden');
+							$('.message').html(message);
+
+						
+						}
+					}
+
+				});
+
+				e.preventDefault();
 
 			});
 

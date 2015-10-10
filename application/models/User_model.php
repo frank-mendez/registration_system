@@ -96,5 +96,31 @@ class User_model extends CI_Model
                 return $query;
         }
 
+        public function insert_user($username, $password, $first_name, $last_name, $email, $address, $phone_num, $role_id)
+        {
+                $db_table = self::DB_TABLE;
+                $table_pk = self::DB_PK;
+
+                $sql = "INSERT INTO `user` (
+                                  `username`,
+                                  `password`,
+                                  `first_name`,
+                                  `last_name`,
+                                  `email`,
+                                  `address`,
+                                  `phone_num`,
+                                  `date_created`,
+                                  `role_id`
+                                ) 
+                                VALUES
+                                  (?, ?, ?, ?, ?, ?, ?, NOW(), ?) ";
+
+                $escaped_values = array($username, $password, $first_name, $last_name, $email, $address, $phone_num, $role_id);
+
+                $query = $this->db->query($sql, $escaped_values);
+
+                return $query;
+        }
+
 }
 
