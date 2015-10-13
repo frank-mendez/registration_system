@@ -13,12 +13,12 @@
     <div class="modal-body">
 
   
-      <input type="hidden" value="<?php echo $user_id; ?>">
+      <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
 
       <div class="form-group">
         <label  class="col-sm-2 control-label">Username</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" name="username" readonly="" value="<?php echo $username; ?>">
+          <input type="text" class="form-control" name="" readonly="" value="<?php echo $username; ?>">
         </div>
       </div>
 

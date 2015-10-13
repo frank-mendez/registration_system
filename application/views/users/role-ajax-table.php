@@ -21,8 +21,8 @@
 				<td><?php echo $name; ?></td>
 				<td><?php echo $description; ?></td>
 				<td>
-					<button class="btn btn-primary edit-role-btn" data-id="<?php echo $role_id; ?>"><span class="glyphicon glyphicon-pencil"></span></button>
-					<button class="btn btn-danger delete-role-btn" data-id="<?php echo $role_id; ?>"><span class="glyphicon glyphicon-trash"></span></button>
+					<button class="btn btn-primary edit-role-btn btn-sm" data-id="<?php echo $role_id; ?>"><span class="glyphicon glyphicon-pencil"></span></button>
+					<button class="btn btn-danger delete-role-btn btn-sm" data-id="<?php echo $role_id; ?>"><span class="glyphicon glyphicon-trash"></span></button>
 				</td>
 			</tr>
 			<?php } ?>

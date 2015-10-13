@@ -238,10 +238,14 @@ Module.Users = (function(){
 				},
 				success: function(response){
 					$table_container.html(response);
-					$(table).DataTable();
 				},
 				complete: function(response){
-					edit_user_modal();
+					$(table).DataTable({
+						"drawCallback": function(settings){
+							edit_user_modal();
+						}
+					});
+					
 				}
 
 			});
@@ -301,6 +305,7 @@ Module.Users = (function(){
 
 							$('.alert-success').css('display','block');
 							$('.alert-success').fadeOut(3000);
+							$('.message-success').html('User Created Succesfully!');
 
 							$modal.modal('hide');
 							get_user_ajax();
@@ -345,10 +350,49 @@ Module.Users = (function(){
 						$modal.html(response);
 					},
 					complete: function(response){
-
+						update_user();
 					}
 
 				});
+
+			});
+
+		}
+
+		function update_user(){
+
+			$('#edit-user-form').on('submit', function(e){
+
+				var data_form = $(this).serialize(),
+					ajax_url = base_url + controller + '/update_user';
+
+				$.ajax({
+					type: 'POST',
+					url: ajax_url,
+					data: data_form,
+					dataType: 'text',
+					beforeSend: function(){
+
+					},
+					success: function(response){
+
+					},
+					complete: function(response){
+
+						$modal.modal('hide');
+
+						$('.message-success').html('User Updated Succesfully!');
+
+						$('.alert-success').css('display','block');
+
+						$('.alert-success').fadeOut(3000);
+						
+						get_user_ajax();
+					}
+
+				});
+
+				e.preventDefault();
 
 			});
 

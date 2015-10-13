@@ -38,8 +38,8 @@
 			<td><?php echo $date_created; ?></td>
 			<td><?php echo $role_id; ?></td>
 			<td>
-				<button class="btn btn-primary edit-user-btn" data-id="<?php echo $user_id; ?>"><span class="glyphicon glyphicon-pencil"></span></button>
-				<button class="btn btn-danger delete-user-btn" data-id="<?php echo $user_id; ?>"><span class="glyphicon glyphicon-trash"></span></button>
+				<button class="btn btn-primary edit-user-btn btn-sm" data-id="<?php echo $user_id; ?>"><span class="glyphicon glyphicon-pencil"></span></button>
+				<button class="btn btn-danger delete-user-btn btn-sm" data-id="<?php echo $user_id; ?>"><span class="glyphicon glyphicon-trash"></span></button>
 			</td>
 		</tr>
 

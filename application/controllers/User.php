@@ -241,4 +241,21 @@ class User extends MY_Controller {
 
 		$this->load->view('users/edit-user-modal', $model_data);
 	}
+
+	public function update_user()
+	{
+		$user_model = $this->user_model;
+
+		$data = $this->input->post();
+
+		if($data){
+
+			extract($data, EXTR_SKIP);
+
+			$query_result = $user_model->update_user($first_name, $last_name, $email, $address, $phone_num, $role_id, $user_id);
+
+			var_dump($query_result);
+
+		}
+	}
 }
