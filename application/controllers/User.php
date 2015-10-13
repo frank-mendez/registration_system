@@ -17,11 +17,14 @@ class User extends MY_Controller {
 	{
 		$login = $this->is_logged_in();
 
+		$session_data = $this->session->userdata; 
+
 		if($login){
 
 			$header_data = array(
 				'controller' => $this->uri->segment(1, ''),
-				'method' => $this->uri->segment(2, '')
+				'method' => $this->uri->segment(2, ''),
+				'session_data' => $session_data
 			);
 
 
@@ -74,9 +77,12 @@ class User extends MY_Controller {
 
 		$results = $user_model->get_user_role();
 
+		$data = $this->session->userdata; 
+
 		$model_data = array(
 
-			'roles' => $results
+			'roles' => $results,
+			'role' => $data['role']
 
 		);
 
@@ -151,11 +157,14 @@ class User extends MY_Controller {
 	/*USER TABLE AND FUNCTIONS*/
 	public function user_table()
 	{
+		$login = $this->is_logged_in();
 
 		$header_data = array(
 			'controller' => $this->uri->segment(1, ''),
 			'method' => $this->uri->segment(2, '')
 		);
+
+
 
 		$footer_data = array();
 		$footer_data['listeners'] = array(
@@ -165,9 +174,13 @@ class User extends MY_Controller {
 
 		);
 
-		$this->load->view('layout/header', $header_data);
-		$this->load->view('users/user');
-		$this->load->view('layout/footer', $footer_data);
+		if($login){
+			$this->load->view('layout/header', $header_data);
+			$this->load->view('users/user');
+			$this->load->view('layout/footer', $footer_data);
+		}else{
+			redirect(base_url('user/login'));
+		}
 	}
 
 	public function user_table_ajax()
@@ -192,7 +205,15 @@ class User extends MY_Controller {
 			$i++;
 		}
 
-		$model_data['users'] = $user_array;
+		$data = $this->session->userdata; 
+
+		$model_data = array(
+
+			'role' => $data['role'],
+			'users' => $user_array
+
+		);
+
 
 		$this->load->view('users/user-table-ajax', $model_data);
 
@@ -356,6 +377,7 @@ class User extends MY_Controller {
 						'username' => $query_result['username'],
 						'first_name' => $query_result['first_name'],
 						'last_name' => $query_result['last_name'],
+						'role' => $this->get_role_name($query_result['role_id'])
 					);
 
 					$this->session->set_userdata($session_array_data);

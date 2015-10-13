@@ -485,8 +485,16 @@ Module.Users = (function(){
 
 							$('#login-alert').css('display', 'block');
 
-						}else{
+						}else if(response.responseText == 'true'){
+
 							window.location.replace(base_url);
+
+						}else{
+
+							var message = $.parseJSON(response.responseText);
+
+							$('#login-alert').css('display', 'block');
+							$('.login-message').html(message);
 						}
 					}
 

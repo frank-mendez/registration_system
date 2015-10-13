@@ -9,7 +9,7 @@
                     <div style="padding-top:30px" class="panel-body" >
 
                         <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12">
-                            Invalid Username or Password
+                            <p>Invalid Username or Password</p> <span class="login-message"></span>
                         </div>
                             
                         <?php 
