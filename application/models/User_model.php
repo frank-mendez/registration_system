@@ -122,5 +122,19 @@ class User_model extends CI_Model
                 return $query;
         }
 
+        public function get_user_by_id($user_id)
+        {
+            $db_table = self::DB_TABLE;
+            $table_pk = self::DB_PK;
+
+            $sql = "SELECT * FROM {$db_table} WHERE {$table_pk} = ?";
+
+            $escaped_value = array($user_id);
+
+            $query = $this->db->query($sql, $escaped_value)->row_array();
+
+            return $query;
+        }
+
 }
 

@@ -13,6 +13,8 @@
 
     <script src="<?php echo base_url('js/custom.js'); ?>"></script>
 
+    <script src="<?php echo base_url('js/dataTables.min.js'); ?>"></script>
+
     <!-- For module pattern JavaScript -->
     <script type="text/javascript">
         $(document).ready(function() {

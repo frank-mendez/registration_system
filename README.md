@@ -7,7 +7,7 @@ User Login and Registration System using PHP framework Codeigniter and CSS frame
 
 2. [Bootstrap  v3.3.5](http://getbootstrap.com/)
 
-3. [validate.js](http://rickharrison.github.io/validate.js/)
+3. [DataTables Table plug-in for jQuery](https://www.datatables.net/)
 
 ###### Functions:
 

@@ -2,7 +2,7 @@
 
 <div class="container">
 
-	<div class="row" style="margin-top:50px;">
+	<div class="row" style="margin-top:75px;">
 		<div class="col-sm-12">
 			<div class="panel panel-success">
 			    <div class="panel-heading">
@@ -21,7 +21,7 @@
 				        <h4>User Created Succesfully!</h4>
 				      </div>
 
-			    	<div class="user-table-container">
+			    	<div class="user-table-container" style="margin-top:25px;">
 
 			    	</div>
 			      

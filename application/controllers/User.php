@@ -217,4 +217,28 @@ class User extends MY_Controller {
 
 		}
 	}
+
+	public function edit_user_modal($user_id)
+	{
+		$user_model = $this->user_model;
+
+		$query_result = $user_model->get_user_by_id($user_id);
+
+		$model_data = array(
+
+			'user_id' => $query_result['user_id'],
+			'username' => $query_result['username'],
+			'first_name' => $query_result['first_name'],
+			'last_name' => $query_result['last_name'],
+			'email' => $query_result['email'],
+			'address' => $query_result['address'],
+			'phone_num' => $query_result['phone_num'],
+			'role_dropdown' => $this->role_dropdown($query_result['role_id'])
+
+		);
+
+		//var_dump($query_result);
+
+		$this->load->view('users/edit-user-modal', $model_data);
+	}
 }

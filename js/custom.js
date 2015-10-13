@@ -226,7 +226,8 @@ Module.Users = (function(){
 		function get_user_ajax(){
 
 			var $table_container = $('.user-table-container'),
-				ajax_url = base_url + controller + '/user_table_ajax';
+				ajax_url = base_url + controller + '/user_table_ajax',
+				table = '.user-table';
 
 			$.ajax({
 				type: 'POST',
@@ -237,10 +238,10 @@ Module.Users = (function(){
 				},
 				success: function(response){
 					$table_container.html(response);
+					$(table).DataTable();
 				},
 				complete: function(response){
-					/*edit_role_modal();
-					delete_role_modal();*/
+					edit_user_modal();
 				}
 
 			});
@@ -319,6 +320,35 @@ Module.Users = (function(){
 				});
 
 				e.preventDefault();
+
+			});
+
+		}
+
+		function edit_user_modal(){
+
+			var $btn = $('.edit-user-btn');
+
+			$btn.on('click', function(){
+
+				var data_id = $(this).data('id'),
+					ajax_url = base_url + controller + '/edit_user_modal/' + data_id;
+
+				$.ajax({
+					type: 'POST',
+					url: ajax_url,
+					dataType: 'text',
+					beforeSend: function(){
+						$modal.modal('show');
+					},
+					success: function(response){
+						$modal.html(response);
+					},
+					complete: function(response){
+
+					}
+
+				});
 
 			});
 
