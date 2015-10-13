@@ -23,4 +23,6 @@
   </head>
   <body>
 
-  <?php $this->load->view('layout/navbar'); ?>
+
+
+  <?php if($method != 'login'){$this->load->view('layout/navbar');} ?>

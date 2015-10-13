@@ -10,6 +10,7 @@ class MY_Controller extends CI_Controller {
             $this->load->helper('url');
             $this->load->helper('form');
             $this->load->library('form_validation');
+            $this->load->library('session');
             $this->load->database();
             //$this->load->model('User_Model');
             //$this->load->library('session');
@@ -54,6 +55,18 @@ class MY_Controller extends CI_Controller {
         }
 
         return $output;
+    }
+
+    public function is_logged_in()
+    {
+        $data = $this->session->userdata;
+
+        if(isset($data['is_logged_in']))
+        {
+            return true;
+        }else{
+            return false;
+        }
     }
 	
 }

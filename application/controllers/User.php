@@ -3,33 +3,48 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User extends MY_Controller {
 
+
 	function __construct()
 	{
 		parent::__construct();
 
 		$user_model = $this->load->model('user_model');
 
-
 	}
+
 
 	public function index()
 	{
+		$login = $this->is_logged_in();
 
-		$footer_data = array();
-		$footer_data['listeners'] = array(
+		if($login){
+
+			$header_data = array(
+				'controller' => $this->uri->segment(1, ''),
+				'method' => $this->uri->segment(2, '')
+			);
+
+
+			$footer_data = array();
+			$footer_data['listeners'] = array(
 
 
 
-		);
+			);
 
-		$this->load->view('layout/header');
-		$this->load->view('users/index');
-		$this->load->view('layout/footer', $footer_data);
+			$this->load->view('layout/header', $header_data);
+			$this->load->view('users/index');
+			$this->load->view('layout/footer', $footer_data);
+
+		}else{
+
+			redirect(base_url('user/login'));
+		}
 	}
 
 	public function role()
 	{
-		
+		$login = $this->is_logged_in();
 
 		$footer_data = array();
 		$footer_data['listeners'] = array(
@@ -39,9 +54,18 @@ class User extends MY_Controller {
 
 		);
 
-		$this->load->view('layout/header');
-		$this->load->view('users/role');
-		$this->load->view('layout/footer', $footer_data);
+		$header_data = array(
+			'controller' => $this->uri->segment(1, ''),
+			'method' => $this->uri->segment(2, '')
+		);
+
+		if($login){
+			$this->load->view('layout/header', $header_data);
+			$this->load->view('users/role');
+			$this->load->view('layout/footer', $footer_data);
+		}else{
+			redirect(base_url('user/login'));
+		}
 	}
 
 	public function role_ajax()
@@ -128,6 +152,11 @@ class User extends MY_Controller {
 	public function user_table()
 	{
 
+		$header_data = array(
+			'controller' => $this->uri->segment(1, ''),
+			'method' => $this->uri->segment(2, '')
+		);
+
 		$footer_data = array();
 		$footer_data['listeners'] = array(
 
@@ -136,7 +165,7 @@ class User extends MY_Controller {
 
 		);
 
-		$this->load->view('layout/header');
+		$this->load->view('layout/header', $header_data);
 		$this->load->view('users/user');
 		$this->load->view('layout/footer', $footer_data);
 	}
@@ -271,5 +300,84 @@ class User extends MY_Controller {
 		$query_result = $user_model->delete_user($user_id);
 
 		echo json_encode($query_result);
+	}
+
+	/*User Login*/
+	public function login()
+	{
+		$data = $this->session->userdata;
+
+		if(isset($data['is_logged_in']))
+		{
+			redirect(base_url(''));
+		}
+		else
+		{
+			$header_data = array(
+				'controller' => $this->uri->segment(1, ''),
+				'method' => $this->uri->segment(2, '')
+			);
+
+			$footer_data = array();
+			$footer_data['listeners'] = array(
+				'Module.Users.user_functions.user_login()',
+			);
+
+			$this->load->view('layout/header', $header_data);
+			$this->load->view('users/login');
+			$this->load->view('layout/footer', $footer_data);
+		}
+	}
+
+	public function validate_user()
+	{
+		$user_model = $this->user_model;
+
+		$session_data = $this->session->userdata;
+
+		$data = $this->input->post();
+
+		if($data){
+
+			extract($data, EXTR_SKIP);
+
+			$this->form_validation->set_rules( 'username', 'Username', 'required|trim' );
+			$this->form_validation->set_rules( 'password', 'Password', 'required|md5' );
+
+			if($this->form_validation->run()){
+
+				$query_result = $user_model->login($username, $password);
+
+				if($query_result){
+
+					$session_array_data = array(
+						'is_logged_in' => true,
+						'user_id' => $query_result['user_id'],
+						'username' => $query_result['username'],
+						'first_name' => $query_result['first_name'],
+						'last_name' => $query_result['last_name'],
+					);
+
+					$this->session->set_userdata($session_array_data);
+
+					echo json_encode(true);
+
+				}else{
+					echo json_encode(false);
+				}
+
+			}else{
+				echo json_encode(validation_errors());
+			}
+		}
+			
+	}
+
+	public function logout()
+	{
+		$this->session->sess_destroy();
+
+		redirect(base_url(''));
+
 	}
 }

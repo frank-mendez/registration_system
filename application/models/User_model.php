@@ -174,5 +174,19 @@ class User_model extends CI_Model
 
         }
 
+        /*User Login*/
+        public function login($username, $password)
+        {
+            $db_table = self::DB_TABLE;
+
+            $sql = "SELECT * FROM {$db_table} WHERE username = ? AND password = ?";
+
+            $escaped_values = array($username, $password);
+
+            $query = $this->db->query($sql, $escaped_values)->row_array();
+
+            return $query;
+        }
+
 }
 

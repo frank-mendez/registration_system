@@ -461,10 +461,48 @@ Module.Users = (function(){
 
 		}
 
+		function user_login(){
+
+			$('#login-user-form').on('submit',function(e){
+
+				var data_form = $(this).serialize(),
+					ajax_url = base_url + controller + '/validate_user';
+
+				$.ajax({
+					type: 'POST',
+					url: ajax_url,
+					data: data_form,
+					dataType: 'text',
+					beforeSend: function(){
+
+					},
+					success: function(response){
+
+					},
+					complete: function(response){
+
+						if(response.responseText == 'false'){
+
+							$('#login-alert').css('display', 'block');
+
+						}else{
+							window.location.replace(base_url);
+						}
+					}
+
+				});
+
+				e.preventDefault();
+
+			});
+
+		}
+
 
 		return{
 			get_user_ajax: get_user_ajax,
-			create_user_modal: create_user_modal
+			create_user_modal: create_user_modal,
+			user_login: user_login
 		}
 
 	})();

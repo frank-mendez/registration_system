@@ -20,7 +20,7 @@
 
           <ul class="nav navbar-nav navbar-right">
             <li><a href="http://builtwithbootstrap.com/" target="_blank">Log in as</a></li>
-            <li><a href="https://wrapbootstrap.com/?ref=bsw" target="_blank">Logout</a></li>
+            <li><a href="<?php echo base_url('user/logout'); ?>">Logout</a></li>
           </ul>
 
         </div>
