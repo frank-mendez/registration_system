@@ -18,7 +18,7 @@
 
 			    	<div class="alert alert-success alert-dismissible fade in" role="alert" style="margin-top:15px;display:none;">
 				        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				        <h4 class="message-success"></h4>
+				        <h5 class="message-success"></h5>
 				      </div>
 
 			    	<div class="user-table-container" style="margin-top:25px;">

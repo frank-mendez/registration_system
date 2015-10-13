@@ -29,7 +29,7 @@
 
 	?>
 
-		<tr>
+		<tr class="<?php echo $user_id; ?>">
 			<td><?php echo $first_name; ?></td>
 			<td><?php echo $last_name; ?></td>
 			<td><?php echo $email; ?></td>

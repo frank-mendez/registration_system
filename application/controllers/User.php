@@ -254,8 +254,22 @@ class User extends MY_Controller {
 
 			$query_result = $user_model->update_user($first_name, $last_name, $email, $address, $phone_num, $role_id, $user_id);
 
-			var_dump($query_result);
+			echo json_encode($query_result);
 
 		}
+	}
+
+	public function delete_user_modal()
+	{
+		$this->load->view('users/delete-user-modal');
+	}
+
+	public function delete_user($user_id)
+	{
+		$user_model = $this->user_model;
+
+		$query_result = $user_model->delete_user($user_id);
+
+		echo json_encode($query_result);
 	}
 }

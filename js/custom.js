@@ -243,6 +243,7 @@ Module.Users = (function(){
 					$(table).DataTable({
 						"drawCallback": function(settings){
 							edit_user_modal();
+							delete_user_modal();
 						}
 					});
 					
@@ -393,6 +394,68 @@ Module.Users = (function(){
 				});
 
 				e.preventDefault();
+
+			});
+
+		}
+
+		function delete_user_modal(){
+
+			var $btn = $('.delete-user-btn');
+
+			$btn.on('click', function(){
+
+				var data_id = $(this).data('id'),
+					ajax_url = base_url + controller + '/delete_user_modal';
+
+				$.ajax({
+					type: 'POST',
+					url: ajax_url,
+					dataType: 'text',
+					beforeSend: function(){
+						$modal.modal('show');
+					},
+					success: function(response){
+						$modal.html(response);
+					},
+					complete: function(){
+						$('.yes-btn').attr('data-id', data_id);
+						confirm_delete();
+					}
+
+				});
+
+			});
+
+		}
+
+		function confirm_delete(){
+
+			var $btn = $('.yes-btn');
+
+			$btn.on('click', function(){
+
+				var data_id = $(this).data('id'),
+					ajax_url = base_url + controller + '/delete_user/' + data_id;
+
+				$.ajax({
+					type: 'POST',
+					url: ajax_url,
+					dataType: 'text',
+					beforeSend: function(){
+
+					},
+					success: function(response){
+
+					},
+					complete: function(response){
+						$modal.modal('hide');
+						$('tr.' + data_id).fadeOut();
+
+						get_user_ajax();
+					}
+
+				});
 
 			});
 

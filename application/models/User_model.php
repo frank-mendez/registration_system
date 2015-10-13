@@ -159,5 +159,20 @@ class User_model extends CI_Model
             return $query;
         }
 
+        public function delete_user($user_id)
+        {
+            $db_table = self::DB_TABLE;
+            $table_pk = self::DB_PK;
+
+            $sql = "DELETE FROM {$db_table} WHERE {$table_pk} = ?";
+
+            $escaped_value = array($user_id);
+
+            $query = $this->db->query($sql, $escaped_value);
+
+            return $query;
+
+        }
+
 }
 
